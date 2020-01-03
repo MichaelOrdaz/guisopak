@@ -195,7 +195,7 @@
     formReceta.observacion.value = item.info;
     formReceta.porcion.value = item.porciones;
     formReceta.gramos.value = item.gramos;
-    formReceta.costo.value = item.costo;
+    formReceta.costo.value = (item.costo / item.porciones).toFixed(2);
     formReceta.calificacion.value = item.califica;
 
     $$('#printReceta').removeAttribute('disabled');

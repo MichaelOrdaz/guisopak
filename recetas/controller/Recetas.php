@@ -253,6 +253,27 @@ class Receta{
 
   }
 
+
+  public function idAvailable(){
+
+    $idReceta = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING) or die( toJson(0, 'El ID Receta es inválido') );
+    $idReceta = strtoupper($idReceta);
+
+    $this->db->query("SELECT * FROM receta WHERE idReceta = '{$idReceta}' LIMIT 1");
+    echo $this->db->affected_rows;
+
+  }
+
+  public function nameAvailable(){
+
+    $nombre = filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_STRING) or die( toJson(0, 'El nombre de la receta es inválido') );
+    $nombre = strtoupper($nombre);
+
+    $this->db->query("SELECT * FROM receta WHERE nombre = '{$nombre}' LIMIT 1");
+    echo $this->db->affected_rows;
+
+  }
+
   public function __destruct(){
     $this->db->close();
   }

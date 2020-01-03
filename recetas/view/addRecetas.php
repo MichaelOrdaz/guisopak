@@ -36,14 +36,22 @@
             <div class="col-md-4 col-sm-6">
               <div class="form-group">
                 <label class="text-blue">ID. Receta *</label>
-                <input type="text" name="idReceta" id="idReceta" class="form-control input-sm" placeholder="Ingresar ID de la receta" minlength="4" maxlength="30" required  autocomplete="off" />
+                <div class="input-group">
+                  <input type="text" name="idReceta" id="idReceta" class="form-control input-sm" placeholder="Ingresar ID de la receta" minlength="4" maxlength="30" required  autocomplete="off" />
+                  <span class="input-group-addon"> </span>
+                  
+                </div>
               </div>
+
             </div>
 
             <div class="col-md-4 col-sm-6">
               <div class="form-group">
                 <label class="text-blue">Nombre *</label>
-                <input type="text" name="nombre" id="nombre" class="form-control input-sm" placeholder="Ingresar nombre de la receta" required  autocomplete="off" />
+                <div class="input-group">
+                  <input type="text" name="nombre" id="nombre" class="form-control input-sm" placeholder="Ingresar nombre de la receta" required  autocomplete="off" />
+                  <span class="input-group-addon"> </span>
+                </div>
               </div>
             </div>
 
@@ -126,7 +134,7 @@
             <div class="col-md-4 col-sm-6">
               <div class="form-group">
                 <label class="text-blue">Autorizó</label>
-                <input type="text" name="autorizo" id="autorizo" class="form-control input-sm" maxlength="100" placeholder="Autorizó" required />
+                <input type="text" name="autorizo" id="autorizo" class="form-control input-sm" maxlength="100" placeholder="Autorizó" />
               </div>
             </div>
 
@@ -220,7 +228,7 @@
             <div class="col-md-3 col-sm-6">
               <div class="form-group">
                 <label class="text-blue">Cantidad</label>
-                <input type="number" min="1" max="999" step="any" name="cantidad" id="cantidad" class="form-control input-sm" placeholder="Cantidad" required />
+                <input type="number" min="0.01" max="999" name="cantidad" id="cantidad" class="form-control input-sm" placeholder="Cantidad" required />
               </div>
             </div>
 
@@ -314,7 +322,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label class="text-blue">Cantidad</label>
-                <input type="number" min="1" max="999" step="any" name="cantidad" class="form-control input-sm" placeholder="Cantidad" required />
+                <input type="number" min="0.01" max="999" name="cantidad" class="form-control input-sm" placeholder="Cantidad" required />
               </div>
             </div>
           
@@ -794,6 +802,72 @@
 
       }//endIf
 
+    });
+    
+  });
+
+  //verificar el nombre y clave de la receta, que sean validos
+  //
+  formReceta.idReceta.addEventListener('input', function(ev){
+    let val = this.value;
+
+    if( val.length === 0 ){
+      this.nextElementSibling.innerHTML = '';
+      return;
+    }
+
+    $.ajax({
+      url: 'recetas/controller/Recetas.php',
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        method: 'idAvailable',
+        id: val
+      },
+      beforeSend: ()=>{
+        this.nextElementSibling.innerHTML = '<i class="fa fa-circle-o-notch fa-spin"></i>';
+      }
+    })
+    .done( (response)=> {
+      if( response )
+        this.nextElementSibling.innerHTML = '<i class="fa fa-times text-danger"></i>';
+      else
+        this.nextElementSibling.innerHTML = '<i class="fa fa-check text-success"></i>';
+    })
+    .fail( ()=> {
+      this.nextElementSibling.innerHTML = '<i class="fa fa-times text-danger"></i>';
+    });
+    
+  });
+
+  formReceta.nombre.addEventListener('input', function(ev){
+    let val = this.value;
+
+    if( val.length === 0 ){
+      this.nextElementSibling.innerHTML = '';
+      return;
+    }
+
+    $.ajax({
+      url: 'recetas/controller/Recetas.php',
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        method: 'nameAvailable',
+        nombre: val
+      },
+      beforeSend: ()=>{
+        this.nextElementSibling.innerHTML = '<i class="fa fa-circle-o-notch fa-spin"></i>';
+      }
+    })
+    .done( (response)=> {
+      if( response )
+        this.nextElementSibling.innerHTML = '<i class="fa fa-times text-danger"></i>';
+      else
+        this.nextElementSibling.innerHTML = '<i class="fa fa-check text-success"></i>';
+    })
+    .fail( ()=> {
+      this.nextElementSibling.innerHTML = '<i class="fa fa-times text-danger"></i>';
     });
     
   });

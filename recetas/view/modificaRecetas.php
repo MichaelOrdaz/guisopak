@@ -205,7 +205,7 @@
             <div class="col-md-3 col-sm-6">
               <div class="form-group">
                 <label class="text-blue">Cantidad</label>
-                <input type="number" min="1" max="999" step="any" name="cantidad" id="cantidad" class="form-control input-sm" placeholder="Cantidad" required />
+                <input type="number" min="0.01" max="999" name="cantidad" id="cantidad" class="form-control input-sm" placeholder="Cantidad" required />
               </div>
             </div>
 
@@ -298,7 +298,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label class="text-blue">Cantidad</label>
-                <input type="number" min="1"  max="999" step="any" name="cantidad" class="form-control input-sm" placeholder="Cantidad" required />
+                <input type="number" min="0.01"  max="999" name="cantidad" class="form-control input-sm" placeholder="Cantidad" required />
               </div>
             </div>
           
